@@ -18,7 +18,9 @@ export function timeRemaining(endTime) {
 export function isEndingSoon(endTime) {
   const secs = (new Date(endTime) - Date.now()) / 1000
   return secs > 0 && secs < 86400
-Your formatDate(dt, opts = {}) {
+}
+
+export function formatDate(dt, opts = {}) {
   return new Date(dt).toLocaleDateString('en-US', {
     year: 'numeric', month: 'short', day: 'numeric',
     hour: 'numeric', minute: '2-digit',
@@ -28,14 +30,20 @@ Your formatDate(dt, opts = {}) {
 
 export function categoryEmoji(slug) {
   const map = {
-    'pipes': '🪵', 'pipe-tobacco': '🌿', 'cigars': '💨', 'cigar-accessories': '✢️',
-    'pipe-accessories': '🔗', 'lighters-matches': '🔷', 'humidors-storage': '🔦',
-    'tobacco-tins-jars': '🫹', 'books-literature': '📒',
+    'pipes': '🪵',
+    'pipe-tobacco': '🌿',
+    'cigars': '💨',
+    'cigar-accessories': '✂️',
+    'pipe-accessories': '🔧',
+    'lighters-matches': '🔥',
+    'humidors-storage': '📦',
+    'tobacco-tins-jars': '🫙',
+    'books-literature': '📚',
   }
-  return map[slug] || '🐻'
+  return map[slug] || '🟫'
 }
 
 export function notifIcon(type) {
-  const map = { outbi: '🔢', won: '🏆', sold: '💰', ending_soon: '🐺' }
-  return map[type] || '🔖'
+  const map = { outbid: '📢', won: '🏆', sold: '💰', ending_soon: '⏰' }
+  return map[type] || '🔔'
 }

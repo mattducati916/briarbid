@@ -25,14 +25,17 @@ async function request(path, options = {}) {
   return data;
 }
 
+// ── Auth ──────────────────────────────────────────────────────
 export const login = (email, password) =>
   request('/auth-login', { method: 'POST', body: JSON.stringify({ email, password }) });
 
 export const register = (payload) =>
   request('/auth-register', { method: 'POST', body: JSON.stringify(payload) });
 
+// ── Home ──────────────────────────────────────────────────────
 export const getHome = () => request('/home');
 
+// ── Auctions ──────────────────────────────────────────────────
 export const getAuctions = (params = {}) => {
   const qs = new URLSearchParams(
     Object.fromEntries(Object.entries(params).filter(([, v]) => v !== '' && v != null))
@@ -45,15 +48,20 @@ export const getAuction = (id) => request(`/auction?id=${id}`);
 export const placeBid = (auction_id, amount) =>
   request('/bid', { method: 'POST', body: JSON.stringify({ auction_id, amount }) });
 
+// ── Sell ──────────────────────────────────────────────────────
 export const createAuction = (payload) =>
   request('/sell', { method: 'POST', body: JSON.stringify(payload) });
 
+// ── Watchlist ─────────────────────────────────────────────────
 export const getWatchlist = () => request('/watchlist');
 export const toggleWatch = (auction_id) =>
   request('/watchlist', { method: 'POST', body: JSON.stringify({ auction_id }) });
 
+// ── Dashboard ─────────────────────────────────────────────────
 export const getDashboard = () => request('/dashboard');
 
+// ── Notifications ─────────────────────────────────────────────
 export const getNotifications = () => request('/notifications');
 
+// ── Profile ───────────────────────────────────────────────────
 export const getProfile = (username) => request(`/profile?username=${username}`);
