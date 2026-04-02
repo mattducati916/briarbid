@@ -39,6 +39,7 @@ export default function Layout() {
                   {dropOpen && (
                     <div className="user-menu__dropdown">
                       <Link to={`/profile/${user.username}`} onClick={() => setDropOpen(false)}>Profile</Link>
+                      {user.is_admin && <Link to="/admin" onClick={() => setDropOpen(false)}>Admin</Link>}
                       <hr />
                       <button onClick={handleSignOut}>Log out</button>
                     </div>

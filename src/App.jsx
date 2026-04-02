@@ -12,6 +12,7 @@ import Sell from './pages/Sell'
 import Watchlist from './pages/Watchlist'
 import Notifications from './pages/Notifications'
 import Profile from './pages/Profile'
+import Admin from './pages/Admin'
 import NotFound from './pages/NotFound'
 
 export default function App() {
@@ -30,6 +31,7 @@ export default function App() {
             <Route path="/watchlist" element={<Watchlist />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/profile/:username" element={<Profile />} />
+            <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

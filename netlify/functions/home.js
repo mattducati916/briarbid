@@ -1,9 +1,30 @@
 // netlify/functions/home.js
 const { query, queryOne } = require('./_db');
 const { cors } = require('./_auth');
+const { getStore } = require('@netlify/blobs');
+
+const defaultCmsData = {
+  heroTitle: 'The Finest Tobacciana,\nAuctioned Daily.',
+  heroSub: 'Rare pipes, aged tobaccos, vintage cigars and accessories — bid, sell, and collect with fellow enthusiasts.',
+  heroBgUrl: null,
+  whyItems: [
+    { icon: '🎓', title: 'Enthusiast Community', desc: 'Built by and for pipe & cigar lovers. Every listing is reviewed for authenticity.' },
+    { icon: '🔒', title: 'Trusted Transactions', desc: 'Verified sellers, transparent bid history, and buyer protection on every auction.' },
+    { icon: '🌍', title: 'Rare Finds', desc: "Estate pipes, discontinued tobaccos, vintage humidors — things you won't find anywhere else." },
+  ]
+};
 
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return cors({});
+
+  const store = getStore('cms');
+  let cmsData = defaultCmsData;
+  try {
+    const storedData = await store.get('home_data', { type: 'json' });
+    if (storedData) cmsData = storedData;
+  } catch (err) {
+    console.error('Failed to load cms data', err);
+  }
 
   const [featured, endingSoon, categories, stats] = await Promise.all([
     query(
@@ -43,5 +64,5 @@ exports.handler = async (event) => {
     ),
   ]);
 
-  return cors({ featured, endingSoon, categories, stats });
+  return cors({ featured, endingSoon, categories, stats, cmsData });
 };
