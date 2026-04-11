@@ -32,6 +32,11 @@ export const login = (email, password) =>
 export const register = (payload) =>
   request('/auth-register', { method: 'POST', body: JSON.stringify(payload) });
 
+// ── CMS ───────────────────────────────────────────────────────
+export const getCms = () => request('/cms');
+export const updateCms = (payload) =>
+  request('/cms', { method: 'POST', body: JSON.stringify(payload) });
+
 // ── Home ──────────────────────────────────────────────────────
 export const getHome = () => request('/home');
 

@@ -17,16 +17,16 @@ export default function Home() {
 
   if (loading) return <div className="loading">Loading…</div>
 
-  const { featured = [], endingSoon = [], categories = [], stats = {} } = data || {}
+  const { featured = [], endingSoon = [], categories = [], stats = {}, cmsData = {} } = data || {}
 
   return (
     <>
       {/* Hero */}
       <section className="hero">
-        <div className="hero-bg"></div>
+        <div className="hero-bg" style={cmsData.heroBgUrl ? { backgroundImage: `url(${cmsData.heroBgUrl})`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}}></div>
         <div className="container hero-content">
-          <h1 className="hero-title">The Finest Tobacciana,<br />Auctioned Daily.</h1>
-          <p className="hero-sub">Rare pipes, aged tobaccos, vintage cigars and accessories — bid, sell, and collect with fellow enthusiasts.</p>
+          <h1 className="hero-title" style={{ whiteSpace: 'pre-wrap' }}>{cmsData.heroTitle}</h1>
+          <p className="hero-sub">{cmsData.heroSub}</p>
           <div className="hero-search">
             <form
               className="search-form"
@@ -99,11 +99,7 @@ export default function Home() {
         <div className="container">
           <h2 className="section-title" style={{ textAlign: 'center', marginBottom: 40 }}>Why BriarBid?</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 32, textAlign: 'center' }}>
-            {[
-              { icon: '🎓', title: 'Enthusiast Community', desc: 'Built by and for pipe & cigar lovers. Every listing is reviewed for authenticity.' },
-              { icon: '🔒', title: 'Trusted Transactions', desc: 'Verified sellers, transparent bid history, and buyer protection on every auction.' },
-              { icon: '🌍', title: 'Rare Finds', desc: 'Estate pipes, discontinued tobaccos, vintage humidors — things you won\'t find anywhere else.' },
-            ].map(f => (
+            {(cmsData.whyItems || []).map(f => (
               <div key={f.title}>
                 <div style={{ fontSize: '2.5rem', marginBottom: 14 }}>{f.icon}</div>
                 <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.1rem', marginBottom: 8 }}>{f.title}</h3>
